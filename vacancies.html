@@ -12,8 +12,55 @@
         nav a:hover { color: #FFD700; }
         main { max-width: 800px; margin: 40px auto; padding: 20px; text-align: center; }
         .job { border-left: 4px solid #6F4E37; padding: 20px; margin: 20px 0; background: white; text-align: left; border-radius: 0 10px 10px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .btn { display: inline-block; padding: 12px 30px; background-color: #6F4E37; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; margin-top: 20px; }
+        .btn { display: inline-block; padding: 12px 30px; background-color: #6F4E37; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; margin-top: 20px; border: none; cursor: pointer; }
+        .btn:hover { background-color: #5D4037; transform: scale(1.03); transition: 0.2s; }
         footer { background-color: #6F4E37; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+
+        /* Стили для формы */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: #6F4E37; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #6F4E37;
+            outline: none;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-message {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+        .form-message.success {
+            display: block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+        .form-message.error {
+            display: block;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -41,9 +88,89 @@
             <p><strong>Мы предлагаем:</strong> Стабильный график 2/2, все ингредиенты предоставляем, зарплата от 45 000 ₽.</p>
         </div>
 
-        <p>Готовы присоединиться? Отправьте краткое резюме или просто напишите нам!</p>
-        <a href="mailto:coffee@aroma.ru?subject=Резюме на вакансию" class="btn">✉️ Отправить резюме на почту</a>
+        <p>Готовы присоединиться? Заполните форму, и мы свяжемся с вами!</p>
+
+        <div class="form-card">
+            <h2 style="color: #6F4E37; margin-top: 0;">📄 Заявка на вакансию</h2>
+            <form id="vacancyForm" novalidate>
+                <div class="form-group">
+                    <label for="fullname">Ваше полное имя *</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Номер телефона *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (900) 123-45-67" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="ivan@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Желаемая должность *</label>
+                    <select id="position" name="position" required>
+                        <option value="">Выберите...</option>
+                        <option value="Бариста">Бариста</option>
+                        <option value="Пекарь">Пекарь</option>
+                        <option value="Администратор">Администратор</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Опыт работы (кратко)</label>
+                    <textarea id="experience" name="experience" placeholder="Например: 2 года в кофейне "Кофеин""></textarea>
+                </div>
+                <button type="submit" class="btn">🚀 Отправить заявку</button>
+                <div id="vacancyMessage" class="form-message"></div>
+            </form>
+        </div>
+
+        <br>
+        <p>Или отправьте резюме на почту: <a href="mailto:coffee@aroma.ru?subject=Резюме на вакансию">coffee@aroma.ru</a></p>
     </main>
     <footer><p>© 2026 Кофейня "Аромат". Все права защищены.</p></footer>
+
+    <script>
+        (function() {
+            const form = document.getElementById('vacancyForm');
+            const messageDiv = document.getElementById('vacancyMessage');
+
+            function showMessage(text, type) {
+                messageDiv.textContent = text;
+                messageDiv.className = 'form-message ' + type;
+            }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const fullname = document.getElementById('fullname').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const position = document.getElementById('position').value;
+
+
+                if (!fullname || !phone || !email || !position) {
+                    showMessage('⚠️ Пожалуйста, заполните все обязательные поля!', 'error');
+                    return;
+                }
+
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    showMessage('⚠️ Введите корректный email адрес!', 'error');
+                    return;
+                }
+
+
+                const phoneClean = phone.replace(/[\s\-()]/g, '');
+                if (phoneClean.length < 10) {
+                    showMessage('⚠️ Введите корректный номер телефона!', 'error');
+                    return;
+                }
+
+
+                showMessage('✅ Спасибо, ' + fullname + '! Ваша заявка на позицию "' + position + '" отправлена. Мы скоро свяжемся с вами.', 'success');
+
+            });
+        })();
+    </script>
 </body>
 </html>
