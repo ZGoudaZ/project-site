@@ -14,7 +14,6 @@
             line-height: 1.6;
         }
 
-        /* Шапка сайта */
         header {
             background-color: #4e342e;
             color: #fff;
@@ -28,7 +27,6 @@
             letter-spacing: 1px;
         }
 
-        /* Блок меню навигации */
         nav {
             background-color: #6d4c41;
             text-align: center;
@@ -52,7 +50,6 @@
             color: #d7ccc8;
         }
 
-        /* Основной контент */
         main {
             max-width: 800px;
             margin: 30px auto;
@@ -75,7 +72,6 @@
             font-size: 1.8em;
         }
 
-        /* Секция приветствия */
         .hero {
             text-align: center;
             background-color: #efebe9;
@@ -97,6 +93,8 @@
             font-weight: bold;
             font-size: 1.1em;
             transition: background-color 0.3s ease, transform 0.2s;
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -104,7 +102,6 @@
             transform: scale(1.05);
         }
 
-        /* Секция преимуществ */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -131,7 +128,6 @@
             color: #5d4037;
         }
 
-        /* Секция меню */
         .menu-list {
             list-style: none;
             padding: 0;
@@ -155,7 +151,6 @@
             color: #8d6e63;
         }
 
-        /* Секция отзывов */
         .review {
             background-color: #fdfbf7;
             border-left: 4px solid #8d6e63;
@@ -174,13 +169,68 @@
             text-align: right;
         }
 
-        /* Секция контактов */
         .contacts p {
             margin: 12px 0;
             font-size: 1.1em;
         }
 
-        /* Подвал сайта */
+        /* Стили для формы */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #5d4037;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d7ccc8;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #8d6e63;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-message {
+            margin-top: 15px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            display: block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .form-message.error {
+            display: block;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
         footer {
             background-color: #3e2723;
             color: #d7ccc8;
@@ -197,14 +247,14 @@
     </header>
 
     <nav>
-  <a href="index.html" class="nav-link">Главная</a>
-  <a href="index.html#about" class="nav-link">О нас</a>
-  <a href="index.html#menu" class="nav-link">Меню</a>
-  <a href="index.html#reviews" class="nav-link">Отзывы</a>
-  <a href="index.html#contacts" class="nav-link">Контакты</a>
-  <a href="delivery.html" class="nav-link">🚚 Доставка</a>
-  <a href="loyalty.html" class="nav-link">🎁 Акции</a>
-  <a href="vacancies.html" class="nav-link">💼 Вакансии</a>
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="#about" class="nav-link">О нас</a>
+        <a href="#menu" class="nav-link">Меню</a>
+        <a href="#reviews" class="nav-link">Отзывы</a>
+        <a href="#contacts" class="nav-link">Контакты</a>
+        <a href="delivery.html" class="nav-link">🚚 Доставка</a>
+        <a href="loyalty.html" class="nav-link">🎁 Акции</a>
+        <a href="vacancies.html" class="nav-link">💼 Вакансии</a>
     </nav>
 
     <main>
@@ -273,12 +323,67 @@
             <p>🕒 Ежедневно: 09:00 — 21:00</p>
             <br>
             <a href="tel:+79641234568" class="btn">📞 Позвонить нам</a>
+
+            <div style="margin-top: 40px; border-top: 2px solid #d7ccc8; padding-top: 30px;">
+                <h3 style="color: #5d4037;">📩 Напишите нам</h3>
+                <form id="feedbackForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="ivan@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение *</label>
+                        <textarea id="message" name="message" placeholder="Ваше сообщение..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">✅ Отправить</button>
+                    <div id="feedbackMessage" class="form-message"></div>
+                </form>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>© 2026 Кофейня "Аромат". Все права защищены.</p>
     </footer>
+
+    <script>
+        (function() {
+            const form = document.getElementById('feedbackForm');
+            const messageDiv = document.getElementById('feedbackMessage');
+
+            function showMessage(text, type) {
+                messageDiv.textContent = text;
+                messageDiv.className = 'form-message ' + type;
+            }
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+
+                if (!name || !email || !message) {
+                    showMessage('⚠️ Пожалуйста, заполните все поля!', 'error');
+                    return;
+                }
+
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    showMessage('⚠️ Введите корректный email адрес!', 'error');
+                    return;
+                }
+		showMessage('✅ Спасибо, ' + name + '! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.', 'success');
+            });
+        })();
+    </script>
 
 </body>
 </html>
